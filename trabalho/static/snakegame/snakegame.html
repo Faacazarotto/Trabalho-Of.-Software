@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Moderno com Tailwind CSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Adicionamos um estilo extra para a lista do placar */
+        #score-list li {
+            padding: 4px 0;
+            border-bottom: 1px solid #374151; /* slate-700 */
+        }
+        #score-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen flex flex-col items-center justify-center font-sans p-4">
+
+    <div class="seta-voltar" onclick="history.back()">
+        <a href="../../templates/index.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+    </div>
+
+    <header>
+        <h1 class="text-5xl font-bold text-cyan-400 mb-8 tracking-wider">SNAKE</h1>
+    </header>
+
+    <main class="flex flex-col md:flex-row gap-10 items-start">
+        
+        <canvas id="gameCanvas" width="600" height="600" class="border-2 border-cyan-500 rounded-lg shadow-lg shadow-cyan-500/20"></canvas>
+
+        <div id="ui-container" class="flex flex-col gap-6 w-full md:w-72">
+            
+            <div class="input-group">
+                <label for="nickname" class="text-sm font-semibold mb-2 text-slate-400">Seu Nickname:</label>
+                <input type="text" id="nickname" placeholder="Digite seu nick..." 
+                       class="w-full bg-slate-800 border border-slate-600 rounded-md p-3 focus:ring-2 focus:ring-cyan-500 focus:outline-none transition">
+            </div>
+
+            <div class="button-group flex flex-col gap-3">
+                <button id="start-singleplayer" 
+                        class="w-full bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-cyan-500 transition-colors duration-200 shadow-md">
+                    Iniciar Single Player
+                </button>
+                <button id="start-multiplayer" 
+                        class="w-full bg-slate-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-600 transition-colors duration-200 shadow-md">
+                    Iniciar Multiplayer Local
+                </button>
+            </div>
+            
+            <div id="scoreboard" class="bg-slate-800/50 border border-slate-700 rounded-lg p-4 backdrop-blur-sm">
+                <h3 class="text-lg font-bold text-cyan-400 mb-3 text-center">🏆 Placar de Honra 🏆</h3>
+                <ul id="score-list" class="space-y-1 text-sm">
+                    <li class="text-slate-500 italic">O placar aparecerá aqui...</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <script src="./game.js" defer></script>
+</body>
+</html>

@@ -22,7 +22,7 @@ body, html {
   padding: 0;
   font-family: Arial, sans-serif;
   height: 100%;
-  background-color: #111;
+  background-color: #000000;
   position: relative;
 }
 
@@ -78,6 +78,7 @@ body, html {
 
 .navbar li {
   margin-left: 20px;
+  
 }
 
 .navbar a {
@@ -147,26 +148,178 @@ h1.sobre::after{
   box-shadow: 0 0 25px #0ff;
 }
 
+.criadores h1{
+  text-align: center;
+  font-size: 2rem;
+  text-decoration: underline;
+  text-decoration-color: #fff;
+  margin-bottom: 2rem;
+}
+
 .criadores{
   font-family: "Nova Mono";
   color: #fff;
-  padding-left: 5%;
-  position: relative;
-  display: inline-block;
+  text-align: center;
 }
 
-.criadores img{
+.devs{
+  font-family: "Nova Mono";
+  color: #fff;
+  margin-left: 40px;
+}
+
+/* cada desenvolvedor */
+.dev {
+  display: flex;
+  align-items: center; /* centraliza verticalmente a foto e os textos */
+  gap: 1.5rem;         /* espaço entre a foto e as infos */
+  margin-bottom: 2rem;
+}
+
+/* imagem circular */
+.dev img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #0ff;
+}
+
+/* área de informações */
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* nome destacado */
+.info .nome {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0 0 .5rem;
+  color: #fff;
+}
+
+/* demais informações */
+.info p {
+  margin: .2rem 0;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.ranking{
+  padding-top: 5rem;
+}
+table{
   width: 100%;
-  height: auto;
-  display: block;
+  margin: 0 auto;
+  border-collapse: collapse;
+  max-width: 600px;
+  background: #111;
+  border-radius: 10px solid #0ff;
+  overflow: hidden;
+}
+thead{
+  background: #0ff;
+  color: #000;
+  font-family: "Press Start 2P";
+}
+th, td{
+  padding: 12px;
+  text-align: center;
+  font-size: 1rem;
 }
 
-.criadores:first-of-type{
-  padding-top: 10%;
+td{
+  font-family: "Press Start 2P";
+  color: yellow;
+  font-size: 12px;
 }
-.criadores:not(:first-of-type){
-  padding-top: 5vh;
+tbody tr:nth-child(even){
+  background: #1a1a1a
+}
+
+.games{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card{
+  background: #111;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px #0ff;
+  transition: transform 0.2s;
+}
+
+.card:hover{
+  transform: scale(1.05);
+
+}
+
+.card img{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.info{
+  padding: 10px;
+}
+
+.info p{
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #0ff;
+  font-family: "Nova Mono";
+}
+
+button, button{
+  background: #4db8ff;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover{
+  background: #fff;
+  color: #000;
 }
 
 
+.seta-voltar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+    background: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.seta-voltar:hover {
+    background: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.scoreskg{
+  color: #fff;
+  font-family: "Press Start 2P";
+  position: absolute;
+  align-items: center;
+  
+}
 

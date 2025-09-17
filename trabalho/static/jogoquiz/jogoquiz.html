@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quiz Educativo</title>
+    <link rel="stylesheet" href="quiz.css" />
+    
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Start screen -->
+           <!-- 🔽 Botão de seta no topo -->
+        <div class="seta-voltar" onclick="history.back()">
+           <a href="../../templates/index.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+        </div>
+
+        <div id="start-screen" class="screen">
+            <h1>Quiz Educativo</h1>
+            <p>Escolha a área ou jogue misturado:</p>
+            <div id="category-buttons" class="buttons-grid"></div>
+        </div>
+
+        <!-- Quiz screen -->
+        <div id="quiz-screen" class="screen hidden">
+            <div class="top-row">
+                <div id="question-count">Pergunta 1 / 10</div>
+                <div id="timer">Tempo: 0s</div>
+            </div>
+
+            <div id="question-box" class="question-box"></div>
+
+            <div id="options" class="options"></div>
+        </div>
+
+        <!-- End screen -->
+        <div id="end-screen" class="screen hidden">
+            <h2>Fim de Jogo!</h2>
+            <p id="score-text">Pontuação: 0 / 10</p>
+            <p id="time-text">Tempo total: 0s</p>
+
+            <div class="review-area">
+                <div id="review-content"></div>
+            </div>
+
+            <button id="restart-btn">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
