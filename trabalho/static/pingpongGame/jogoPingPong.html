@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pong — Single / Multiplayer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Setinha superior esquerda: altere href para a sua "tela principal" -->
+  <a class="back-btn" href="../../templates/index.html" title="Voltar à tela principal" aria-label="Voltar">
+    <!-- simples SVG seta -->
+    <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <main class="page">
+    <div class="game-card">
+      <header class="game-header">
+        <h1>Pong</h1>
+        <div class="controls">
+          <label for="modeSelect">Modo</label>
+          <select id="modeSelect">
+            <option value="single">Singleplayer (você vs CPU)</option>
+            <option value="multi">Multiplayer (W/S vs ↑/↓)</option>
+          </select>
+          <button id="startBtn">Iniciar / Reiniciar</button>
+        </div>
+      </header>
+
+      <section class="play-area">
+        <!-- Canvas do jogo (tamanho controlado pelo CSS) -->
+        <canvas id="pongCanvas" width="800" height="500"></canvas>
+        <div class="hud">
+          <div id="scoreLeft" class="score">0</div>
+          <div id="scoreRight" class="score">0</div>
+        </div>
+      </section>
+
+      <footer class="instructions">
+        <p><strong>Controles:</strong> Singleplayer → use <kbd>↑</kbd> e <kbd>↓</kbd>. Multiplayer → jogador esquerdo: <kbd>W</kbd>/<kbd>S</kbd>, jogador direito: <kbd>↑</kbd>/<kbd>↓</kbd>.</p>
+      </footer>
+    </div>
+  </main>
+
+  <script src="pong.js"></script>
+</body>
+</html>
