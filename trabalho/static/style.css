@@ -89,8 +89,9 @@ body, html {
 
 }
 
-.navbar a:hover {
+a:hover {
   color: #0ff;
+  transform: scale(2);
 }
 
 .navbar .signup {
@@ -166,6 +167,7 @@ h1.sobre::after{
   font-family: "Nova Mono";
   color: #fff;
   margin-left: 40px;
+  
 }
 
 /* cada desenvolvedor */
@@ -208,7 +210,7 @@ h1.sobre::after{
 }
 
 .ranking{
-  padding-top: 5rem;
+  padding-top: 10rem;
 }
 table{
   width: 100%;
@@ -320,6 +322,78 @@ button:hover{
   font-family: "Press Start 2P";
   position: absolute;
   align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-left: 35%;
   
 }
 
+.icon svg{
+  margin-left: 35px;
+}
+
+.dados img{
+  height: 200px;
+  width: 200px;
+  position: relative;
+  border: 5px solid cornflowerblue ;
+  border-radius: 50%;
+  margin: 20px 0px 20px 200px;
+
+}
+.dados{
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  gap: 15px;
+  flex-direction: column;
+  
+}
+
+.linha-baixo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.nome{
+  border: 2px solid rgb(217, 15, 166);
+  width: 400px;
+  height: 65px;
+  margin-left: 200px;
+  border-radius: 6px;
+  background-color: rgba(217, 15, 166, 0.315);
+}
+.edit-button{
+ display: inline-flex;
+  align-items: center;
+  gap: 6px; /* espaço entre ícone e texto */
+
+  padding: 10px 18px;
+  background-color: rgb(217, 15, 166);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  text-align: center;
+}
+.edit-button:hover {
+  background-color: cornflowerblue; /* verde mais escuro */
+  transform: scale(1.03); /* leve zoom */
+}
+.edit-button:active {
+  transform: scale(0.97);
+}
+
+.nomeUsuario{
+  font-family: "Nova Mono";
+  font-size: 20px;
+  color: #0ff;
+  align-items: center;
+  text-align: center;
+}

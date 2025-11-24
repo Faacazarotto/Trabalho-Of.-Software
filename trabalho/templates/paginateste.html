@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfil — Usuário</title>
+  <meta name="description" content="Página de perfil de usuário — HTML + CSS responsivo" />
+  <style>
+    :root{
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #98a0b3;
+      --accent: #6ee7b7;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      --max-width: 980px;
+      --container-pad: 20px;
+      --shadow: 0 8px 24px rgba(2,6,23,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#061021 0%, #071227 60%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 16px;
+      font-size:16px;
+      line-height:1.4;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:24px;
+      padding:24px;
+    }
+
+    /* Header / cover */
+    .cover{
+      grid-column:1 / -1;
+      height:160px;
+      background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1400&q=60');
+      background-size:cover;
+      background-position:center;
+      border-radius:14px;
+      position:relative;
+      margin-bottom:6px;
+    }
+    .cover::after{
+      content:"";
+      position:absolute;inset:0; background:linear-gradient(180deg,rgba(2,6,23,0.2),rgba(2,6,23,0.6)); border-radius:14px;
+    }
+
+    /* Left column */
+    .left{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .profile-card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: 0 6px 20px rgba(3,7,18,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .avatar-wrap{
+      display:flex;gap:12px;align-items:center;
+    }
+    .avatar{
+      width:86px;height:86px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,0.06);
+      flex:0 0 86px; background:#111;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .name{
+      display:flex;flex-direction:column;gap:6px;
+    }
+    .name h2{margin:0;font-size:1.25rem}
+    .name p{margin:0;color:var(--muted);font-size:0.95rem}
+
+    .actions{display:flex;gap:10px;margin-top:8px}
+    .btn{padding:8px 12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#34d399);color:#022017;border:0}
+
+    .stat-grid{display:flex;gap:10px;margin-top:14px}
+    .stat{flex:1;background:var(--glass);padding:10px;border-radius:10px;text-align:center}
+    .stat strong{display:block;font-size:1.1rem}
+    .stat span{color:var(--muted);font-size:0.9rem}
+
+    .contact{margin-top:12px;color:var(--muted);font-size:0.95rem}
+    .contact a{color:inherit;text-decoration:none}
+
+    /* Right column */
+    .main{
+      display:flex;flex-direction:column;gap:16px;
+    }
+
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 20px rgba(3,7,18,0.6)}
+
+    .bio{color:var(--muted)}
+
+    .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .skill{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:600}
+
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .timeline-item{display:flex;gap:12px;align-items:flex-start}
+    .timeline-item .bubble{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px}
+
+    /* responsive */
+    @media (max-width:880px){
+      .wrap{grid-template-columns:1fr; padding:16px}
+      .cover{height:180px}
+      .left{order:2}
+      .main{order:1}
+    }
+
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <div class="cover" aria-hidden="true"></div>
+
+    <aside class="left">
+      <section class="profile-card" aria-labelledby="profile-name">
+        <div class="avatar-wrap">
+          <div class="avatar" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=60" alt="Foto do usuário"/>
+          </div>
+          <div class="name">
+            <h2 id="profile-name">Gabriela Santos</h2>
+            <p>Desenvolvedora Front‑end · UX Enthusiast</p>
+            <div class="actions">
+              <button class="btn primary">Seguir</button>
+              <button class="btn">Mensagem</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-grid" role="list" aria-label="Estatísticas do usuário">
+          <div class="stat" role="listitem"><strong>1.2k</strong><span>Seguidores</span></div>
+          <div class="stat" role="listitem"><strong>323</strong><span>Seguindo</span></div>
+          <div class="stat" role="listitem"><strong>89</strong><span>Projetos</span></div>
+        </div>
+
+        <div class="contact">
+          <p><strong>Email:</strong> <a href="mailto:gabriela@example.com">gabriela@example.com</a></p>
+          <p><strong>Local:</strong> São Paulo, Brasil</p>
+        </div>
+      </section>
+
+      <section class="profile-card">
+        <h3 style="margin:0 0 8px 0">Habilidades</h3>
+        <div class="skills">
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">React</span>
+          <span class="skill">Acessibilidade</span>
+        </div>
+      </section>
+
+      <section class="profile-card">
+        <h3 style="margin:0 0 8px 0">Links</h3>
+        <ul style="margin:0;padding-left:18px;color:var(--muted);">
+          <li><a href="#" target="_blank" rel="noopener">Portfólio</a></li>
+          <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </section>
+
+    </aside>
+
+    <section class="main">
+      <article class="card">
+        <h3>Sobre</h3>
+        <p class="bio">Olá! Sou desenvolvedora front‑end com foco em experiências acessíveis e performáticas. Gosto de transformar ideias em interfaces simples e elegantes. Atualmente trabalho com React e TypeScript.</p>
+      </article>
+
+      <article class="card">
+        <h3>Atividade recente</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center">📦</div>
+            <div class="bubble">
+              <strong>Publicou um projeto</strong>
+              <div style="color:var(--muted);font-size:0.95rem">Refatorou a UI do painel administrativo — 3 dias atrás</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center">📝</div>
+            <div class="bubble">
+              <strong>Escreveu um artigo</strong>
+              <div style="color:var(--muted);font-size:0.95rem">Boas práticas de acessibilidade para formulários — 1 semana atrás</div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Projetos em destaque</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px">
+          <figure style="background:rgba(255,255,255,0.02);padding:10px;border-radius:12px;margin:0">
+            <img src="https://images.unsplash.com/photo-1526378720538-4f9b9c6b5c97?auto=format&fit=crop&w=800&q=60" alt="Projeto 1" style="width:100%;height:110px;object-fit:cover;border-radius:8px;display:block"/>
+            <figcaption style="padding-top:8px;font-weight:600">Dashboard Analytics</figcaption>
+            <div style="color:var(--muted);font-size:0.9rem">React · D3</div>
+          </figure>
+
+          <figure style="background:rgba(255,255,255,0.02);padding:10px;border-radius:12px;margin:0">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=60" alt="Projeto 2" style="width:100%;height:110px;object-fit:cover;border-radius:8px;display:block"/>
+            <figcaption style="padding-top:8px;font-weight:600">Design System</figcaption>
+            <div style="color:var(--muted);font-size:0.9rem">Figma · Tokens</div>
+          </figure>
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+</body>
+</html>
