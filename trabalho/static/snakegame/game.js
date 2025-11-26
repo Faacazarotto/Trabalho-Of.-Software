@@ -33,11 +33,9 @@ function drawGridItem(x, y, color) {
 }
 
 function drawGame() {
-    // Limpa a tela
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    // Desenha as cobras
     gameState.snakes.forEach(snake => {
         snake.body.forEach((segment, index) => {
             const color = (index === 0) ? snake.colorHead : snake.colorBody;
@@ -45,7 +43,6 @@ function drawGame() {
         });
     });
 
-    // Desenha a comida
     drawGridItem(gameState.food.x, gameState.food.y, 'red');
 }
 
@@ -57,11 +54,12 @@ function placeFood() {
             x: Math.floor(Math.random() * GRID_W),
             y: Math.floor(Math.random() * GRID_H)
         };
-        // Garante que a comida não apareça em cima de uma cobra
-        const isonSnake = gameState.snakes.some(snake =>
+
+        const isOnSnake = gameState.snakes.some(snake =>
             snake.body.some(segment => segment.x === foodPosition.x && segment.y === foodPosition.y)
         );
-        if (!isonSnake) {
+
+        if (!isOnSnake) {
             gameState.food = foodPosition;
             return;
         }
@@ -85,33 +83,42 @@ function resetGame(mode) {
     gameState.mode = mode;
     gameState.snakes = [];
 
-    // Cobra 1 (Jogador 1 - Setas)
-    const snake1Controls = { 'ArrowUp': {dx: 0, dy: -1}, 'ArrowDown': {dx: 0, dy: 1}, 'ArrowLeft': {dx: -1, dy: 0}, 'ArrowRight': {dx: 1, dy: 0} };
+    const snake1Controls = {
+        'ArrowUp': { dx: 0, dy: -1 },
+        'ArrowDown': { dx: 0, dy: 1 },
+        'ArrowLeft': { dx: -1, dy: 0 },
+        'ArrowRight': { dx: 1, dy: 0 }
+    };
     gameState.snakes.push(createSnake(10, 10, 1, 0, '#00FF00', '#00AA00', snake1Controls));
 
     if (mode === 'multi') {
-        // Cobra 2 (Jogador 2 - WASD)
-        const snake2Controls = { 'w': {dx: 0, dy: -1}, 's': {dx: 0, dy: 1}, 'a': {dx: -1, dy: 0}, 'd': {dx: 1, dy: 0} };
+        const snake2Controls = {
+            'w': { dx: 0, dy: -1 },
+            's': { dx: 0, dy: 1 },
+            'a': { dx: -1, dy: 0 },
+            'd': { dx: 1, dy: 0 }
+        };
         gameState.snakes.push(createSnake(GRID_W - 10, GRID_H - 10, -1, 0, '#00FFFF', '#00AAAA', snake2Controls));
     }
-    
+
     placeFood();
 }
 
 function moveSnakes() {
     gameState.snakes.forEach(snake => {
-        const head = { ...snake.body[0] }; // Copia a cabeça
-        head.x = (head.x + snake.dx + GRID_W) % GRID_W; // Lógica de dar a volta na tela
-        head.y = (head.y + snake.dy + GRID_H) % GRID_H;
+        const head = { ...snake.body[0] };
 
-        snake.body.unshift(head); // Adiciona a nova cabeça
+        // Movimento NORMAL (sem atravessar paredes)
+        head.x = head.x + snake.dx;
+        head.y = head.y + snake.dy;
 
-        // Se a cobra comeu a comida
+        snake.body.unshift(head);
+
         if (head.x === gameState.food.x && head.y === gameState.food.y) {
             snake.score = (snake.score || 0) + 10;
             placeFood();
         } else {
-            snake.body.pop(); // Remove a cauda
+            snake.body.pop();
         }
     });
 }
@@ -120,14 +127,19 @@ function checkCollisions() {
     for (const [snakeIndex, snake] of gameState.snakes.entries()) {
         const head = snake.body[0];
 
-        // Colisão consigo mesmo
+        // --- 🟥 COLISÃO COM PAREDES ---
+        if (head.x < 0 || head.x >= GRID_W || head.y < 0 || head.y >= GRID_H) {
+            return `A Cobra ${snakeIndex + 1} bateu na parede!`;
+        }
+
+        // --- COLISÃO CONSIGO MESMA ---
         for (let i = 1; i < snake.body.length; i++) {
             if (head.x === snake.body[i].x && head.y === snake.body[i].y) {
                 return `A Cobra ${snakeIndex + 1} colidiu consigo mesma!`;
             }
         }
 
-        // Colisão com outras cobras (modo multiplayer)
+        // --- COLISÃO ENTRE COBRAS ---
         if (gameState.mode === 'multi') {
             for (const [otherSnakeIndex, otherSnake] of gameState.snakes.entries()) {
                 if (snakeIndex === otherSnakeIndex) continue;
@@ -139,22 +151,25 @@ function checkCollisions() {
             }
         }
     }
-    return null; // Nenhuma colisão
+
+    return null;
 }
 
 function gameLoop() {
     if (!gameState.running) return;
 
     moveSnakes();
+
     const collisionMessage = checkCollisions();
 
     if (collisionMessage) {
         gameState.running = false;
         gameState.gameOver = true;
         clearInterval(gameState.gameInterval);
-        
+
         const finalScore = Math.max(...gameState.snakes.map(s => s.score || 0));
         alert(`FIM DE JOGO!\n${collisionMessage}\nPontuação final: ${finalScore}`);
+
         saveScore(gameState.nickname, finalScore);
         loadScores();
         return;
@@ -163,10 +178,11 @@ function gameLoop() {
     drawGame();
 }
 
-// --- PLACAR (SCOREBOARD) ---
+// --- PLACAR ---
 function loadScores() {
     const scores = JSON.parse(localStorage.getItem('snakeScores')) || [];
-    scoreList.innerHTML = ''; // Limpa a lista
+    scoreList.innerHTML = '';
+
     scores.slice(0, 10).forEach((score, index) => {
         const li = document.createElement('li');
         li.textContent = `${index + 1}. ${score.name} - ${score.score}`;
@@ -176,10 +192,12 @@ function loadScores() {
 
 function saveScore(name, score) {
     if (!name || score === 0) return;
+
     const scores = JSON.parse(localStorage.getItem('snakeScores')) || [];
     scores.push({ name, score });
-    scores.sort((a, b) => b.score - a.score); // Ordena do maior para o menor
-    localStorage.setItem('snakeScores', JSON.stringify(scores.slice(0, 10))); // Salva só os 10 melhores
+    scores.sort((a, b) => b.score - a.score);
+
+    localStorage.setItem('snakeScores', JSON.stringify(scores.slice(0, 10)));
 }
 
 // --- INICIALIZAÇÃO ---
@@ -189,18 +207,27 @@ function startGame(mode) {
         alert('Por favor, digite um nickname para começar!');
         return;
     }
+
     gameState.nickname = nickname;
     resetGame(mode);
-    gameState.gameInterval = setInterval(gameLoop, 100); // Velocidade do jogo (100ms)
+    gameState.gameInterval = setInterval(gameLoop, 100);
 }
 
-// Adiciona os "escutadores" de eventos
+window.addEventListener('keydown', function(e){
+    const keysToBlock = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ''];
+
+    if(keysToBlock.includes(e.key)){
+        e.preventDefault();
+    }
+}, {passive: false});
+
 document.addEventListener('keydown', event => {
     const key = event.key;
+
     gameState.snakes.forEach(snake => {
         if (snake.controls[key]) {
             const newDirection = snake.controls[key];
-            // Impede a cobra de se inverter
+
             if (newDirection.dx !== -snake.dx || newDirection.dy !== -snake.dy) {
                 snake.dx = newDirection.dx;
                 snake.dy = newDirection.dy;
@@ -212,6 +239,5 @@ document.addEventListener('keydown', event => {
 startSinglePlayerButton.addEventListener('click', () => startGame('single'));
 startMultiplayerButton.addEventListener('click', () => startGame('multi'));
 
-// Carrega o placar assim que a página abre
 loadScores();
 console.log("Jogo da Cobrinha em JS pronto!");

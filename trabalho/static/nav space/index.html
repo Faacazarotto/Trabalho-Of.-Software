@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Conecta o arquivo JavaScript externo -->
     <script src="game.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <style>
         /* Remove o cursor padrão dentro do canvas para imersão */
         #gameCanvas {
@@ -16,9 +17,36 @@
         body {
             user-select: none;
         }
+                .back-btn{
+            position:fixed;
+            left:18px;
+            top:18px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:44px;
+            height:44px;
+            border-radius:10px;
+            background:var(--glass);
+            color:var(--accent);
+            text-decoration:none;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+            backdrop-filter: blur(6px);
+            transition:transform .12s ease, background .12s;
+        }
+        .back-btn:hover{ transform:translateX(-3px) scale(1.02);    background: rgba(255,255,255,0.04) }
+
     </style>
 </head>
 <body class="bg-slate-900 text-gray-200 min-h-screen font-sans overflow-hidden flex items-center justify-center">
+
+    <!-- Setinha superior esquerda: altere href para a sua "tela principal" -->
+  <a class="back-btn" href="../../templates/index.html" title="Voltar à tela principal" aria-label="Voltar">
+    <!-- simples SVG seta -->
+    <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 
     <div class="flex flex-col lg:flex-row gap-8 items-start justify-center w-full max-w-7xl p-4">
 
